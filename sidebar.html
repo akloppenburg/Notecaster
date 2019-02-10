@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+    <!-- The CSS package above applies Google styling to buttons and other elements. -->
+
+    <style>
+    .branding-below {
+      bottom: 56px;
+      top: 0;
+    }
+    .branding-text {
+      left: 7px;
+      position: relative;
+      top: 3px;
+    }
+    .col-contain {
+      overflow: hidden;
+    }
+    .col-one {
+      float: left;
+      width: 50%;
+    }
+    .logo {
+      vertical-align: middle;
+    }
+    .radio-spacer {
+      height: 20px;
+    }
+    .width-100 {
+      width: 100%;
+    }
+    .button,button,input[type="button"],input[type="image"],input[type="reset"],input[type="submit"],.button:hover,button:hover,input[type="button"]:hover,input[type="image"]:hover,input[type="reset"]:hover,input[type="submit"]:hover{
+       background: Transparent;
+       background: Transparent;
+       background: Transparent;
+       background: Transparent;
+       background: Transparent;
+       background: Transparent;
+       background: Transparent;
+       background: Transparent;
+       background: Transparent;
+       background: Transparent;
+       background: Transparent;
+       background: Transparent;
+       background-repeat: no-repeat;
+       border: none;
+       -moz-border-radius: none;
+       -webkit-border-radius: none;
+       border-radius: none;
+       -moz-box-shadow: none;
+       -webkit-box-shadow: none;
+       box-shadow: none;
+       color: Transparent;
+       cursor: pointer;
+       font-family: arial, sans-serif;
+       font-size: 11px;
+       font-weight: bold;
+       height: 29px;
+       line-height: 27px;
+       margin: 0;
+       min-width: 72px;
+       outline: none;
+       padding: none;
+       text-align: center;
+       white-space: nowrap;
+    }
+    </style>
+    
+    <script>
+      function load(){
+        google.script.run.withSuccessHandler(callback).withUserObject("photo0").get_image_id(0);
+        google.script.run.withSuccessHandler(callback).withUserObject("photo1").get_image_id(1);
+        google.script.run.withSuccessHandler(callback).withUserObject("photo2").get_image_id(2);
+        google.script.run.withSuccessHandler(callback).withUserObject("photo3").get_image_id(3);
+        google.script.run.withSuccessHandler(callback).withUserObject("photo4").get_image_id(4);
+      }
+      
+      function callback(id, string){
+        document.getElementById(string).src = "https://drive.google.com/uc?id=" + id;
+      }
+    </script>
+        
+  </head>
+  <body onload = "load()">
+    <div class="sidebar branding-below">
+      <form>
+          <div>
+            <button id="button0"><img id="photo0" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="250" height="250"></button>
+          </div>
+          <div>
+            <button id="button1"><img id="photo1" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="250" height="250"></button>
+          </div>
+          <div>
+            <button id="button2"><img id="photo2" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="250" height="250"></button>
+          </div>
+          <div>
+            <button id="button3"><img id="photo3" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="250" height="250"></button>
+          </div>
+          <div>
+            <button id="button4"><img id="photo4" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="250" height="250"></button>
+          </div>
+      </form>
+    </div>
+ 
+    <div class="sidebar bottom">
+      <img alt="Add-on logo" class="logo" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="27" height="27">
+      <span class="gray branding-text">Hacklahoma 2019</span>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+      
+      /**
+       * On document load, assign click handlers to each button and try to load the
+       * user's origin and destination language preferences if previously set.
+       */
+      $(function() {
+        $('#button0').click({param1: 0}, insertPhoto);
+        $('#button1').click({param1: 1}, insertPhoto);
+        $('#button2').click({param1: 2}, insertPhoto);
+        $('#button3').click({param1: 3}, insertPhoto);
+        $('#button4').click({param1: 4}, insertPhoto);
+      });
+
+      /**
+       * Runs a server-side function to insert the translated text into the document
+       * at the user's cursor or selection.
+       */
+      function insertPhoto(event) {
+        this.disabled = true;
+        $('#error').remove();
+        google.script.run.insert_image(event.data.param1);
+      }
+
+      /**
+       * Inserts a div that contains an error message after a given element.
+       *
+       * @param {string} msg The error message to display.
+       * @param {DOMElement} element The element after which to display the error.
+       */
+      function showError(msg, element) {
+        var div = $('<div id="error" class="error">' + msg + '</div>');
+        $(element).after(div);
+      }
+    </script>
+  </body>
+</html>
