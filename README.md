@@ -5,6 +5,7 @@ Hacklahoma 2019.  A note-taking platform that sends photos from your phone to a 
 1. Finish Google Doc Add-on 
    * URLS
    * Photo scaling 
+   * Background refresh
 2. Chrome Extension 
    * Everything 
 3. IOS App 
