@@ -1,0 +1,21 @@
+### Current TODO List: 
+1. Finish Google Doc Add-on - Eric and Alex
+   * URLS
+   * Photo scaling 
+   * Background refresh
+2. IOS App - Cameron and Cavan
+    * Make theme and buttons similar to a google app 
+    * After a photo is uploaded, show a comfirmation animation
+    * Sign in and sign out button working properly
+    * Settings - dark and light mode
+    * go straight to camera
+3. Android App - Cavan
+    * based off of the iOS code
+    * pretty much everything
+4. Chrome Extension - Eric and Alex
+   * Repurpose code from google docs addon to create the extension
+   
+### Future Goals
+1. Expand to other applications
+2. ????
+3. Profit
