@@ -1,7 +1,7 @@
 {
   "name": "Notecaster",
   "version": "6.9",
-  "description": "A real-time cloud computing extension",
+  "description": "A real-time cloud computing extension for data mining your drive information",
   "permissions": [
     "bookmarks"
   ],
