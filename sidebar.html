@@ -32,8 +32,8 @@
     .width-100 {
       width: 100%;
     }
-    <!-- Overrides google button specifications to ensure that the images are the only thing visible, and not a button. -->
-    .button,button,input[type="button"],input[type="image"],input[type="reset"],input[type="submit"],.button:hover,button:hover,input[type="button"]:hover,input[type="image"]:hover,input[type="reset"]:hover,input[type="submit"]:hover{
+    
+    .button,button,input[type="button"],input[type="image"],input[type="reset"],input[type="submit"],.button:hover,button:hover,input[type="button"]:hover,input[type="image"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,.button.disabled,button:disabled,input[type="button"]:disabled,input[type="image"]:disabled,input[type="reset"]:disabled,input[type="submit"]:disabled{
        background: Transparent;
        background: Transparent;
        background: Transparent;
@@ -59,19 +59,16 @@
        font-family: arial, sans-serif;
        font-size: 11px;
        font-weight: bold;
-       height: 29px;
-       line-height: 27px;
+       height: 0px;
+       line-height: 0px;
        margin: 0;
-       min-width: 72px;
+       min-width: 0px;
        outline: none;
        padding: none;
        text-align: center;
        white-space: nowrap;
     }
     </style>
-    
-    <!-- Uses a server-side function to load the 5 most recent photos from the Notecaster folder, returning the corresponding file IDs through the callback function. -->
-    <!-- Callback function concatenates the file IDs to the relevant image link format. -->
     <script>
       function load(){
         google.script.run.withSuccessHandler(callback).withUserObject("photo0").get_image_id(0);
@@ -80,33 +77,33 @@
         google.script.run.withSuccessHandler(callback).withUserObject("photo3").get_image_id(3);
         google.script.run.withSuccessHandler(callback).withUserObject("photo4").get_image_id(4);
       }
-      
-      
       function callback(id, string){
         document.getElementById(string).src = "https://drive.google.com/uc?id=" + id;
       }
+      
+      //function fail(id, string){
+      //  DocumentApp.getActiveDocument().getCursor().insertText("insertion of " + string + "failed.  id = " + id + "\n")
+      //}
     </script>
         
   </head>
-  <!-- onload ensures that the photos are called immediately, as soon as the body itself is loaded. -->
   <body onload = "load()">
     <div class="sidebar branding-below">
       <form>
-          <!-- Each picture button uses our bee logo as a placeholder until a picture can be dynamically loaded in. -->
           <div>
-            <button id="button0"><img id="photo0" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="250" height="250"></button>
+            <button id="button0"><img id="photo0" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250"></button>
           </div>
           <div>
-            <button id="button1"><img id="photo1" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="250" height="250"></button>
+            <button id="button1"><img id="photo1" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250"></button>
           </div>
           <div>
-            <button id="button2"><img id="photo2" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="250" height="250"></button>
+            <button id="button2"><img id="photo2" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250"></button>
           </div>
           <div>
-            <button id="button3"><img id="photo3" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="250" height="250"></button>
+            <button id="button3"><img id="photo3" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250"></button>
           </div>
           <div>
-            <button id="button4"><img id="photo4" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="250" height="250"></button>
+            <button id="button4"><img id="photo4" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250"></button>
           </div>
       </form>
     </div>
@@ -114,12 +111,17 @@
     <!-- Small logo at the bottom. -->
     <div class="sidebar bottom">
       <img alt="Add-on logo" class="logo" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="27" height="27">
-      <span class="gray branding-text">Hacklahoma 2019</span>
+      <a class="gray branding-text" href="https://github.com/akloppenburg/Notecaster">Hacklahoma Project 2019</a>
     </div>
     
     <!-- JQuery is used here for button click handling  InsertPhoto calls the insert_image function 5 times with a different argument passed through the handler for each button. -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
+    
+      /**
+       * On document load, set the sidebar to refresh its content every 10 seconds
+       */
+      //setTimeout(refresh, 10000);
       
       /**
        * On document load, assign click handlers to each button.
@@ -140,7 +142,16 @@
         $('#error').remove();
         google.script.run.insert_image(event.data.param1);
       }
-
+      
+      /**
+       * Runs a server-side function to refresh the photos currently loaded.
+       */
+      function refresh() {
+        this.disabled = true;
+        $('#error').remove();
+        google.script.run.showSidebar();
+      }
+      
       /**
        * Inserts a div that contains an error message after a given element.
        *
