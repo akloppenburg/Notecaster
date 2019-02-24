@@ -93,6 +93,8 @@ function get_image_id(image_num){
   var image = choose_image(image_num);
   //if the file exists, return its id as a String
   if(image){
+    DocumentApp.getActiveDocument().getCursor().insertText(image.getId() + "\n")
+    Logger.log(image_num);
     return image.getId()
   }
   //else, throw an error
