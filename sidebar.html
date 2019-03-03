@@ -33,6 +33,8 @@
       width: 100%;
     }
     
+    
+    
     .button,button,input[type="button"],input[type="image"],input[type="reset"],input[type="submit"],.button:hover,button:hover,input[type="button"]:hover,input[type="image"]:hover,input[type="reset"]:hover,input[type="submit"]:hover,.button.disabled,button:disabled,input[type="button"]:disabled,input[type="image"]:disabled,input[type="reset"]:disabled,input[type="submit"]:disabled{
        background: Transparent;
        background: Transparent;
@@ -68,49 +70,112 @@
        text-align: center;
        white-space: nowrap;
     }
+    
+      .rotate90 {
+       -webkit-transform: rotate(90deg);
+       -moz-transform: rotate(90deg);
+       -o-transform: rotate(90deg);
+       -ms-transform: rotate(90deg);
+       transform: rotate(90deg);
+      }
+      .rotate180 {
+       -webkit-transform: rotate(180deg);
+       -moz-transform: rotate(180deg);
+       -o-transform: rotate(180deg);
+       -ms-transform: rotate(180deg);
+       transform: rotate(180deg);
+      }
+      .rotate270 {
+       -webkit-transform: rotate(270deg);
+       -moz-transform: rotate(270deg);
+       -o-transform: rotate(270deg);
+       -ms-transform: rotate(270deg);
+       transform: rotate(270deg);
+      }
     </style>
+    
+    <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
     <script>
       function load(){
-        google.script.run.withSuccessHandler(callback).withUserObject("photo0").get_image_id(0);
-        google.script.run.withSuccessHandler(callback).withUserObject("photo1").get_image_id(1);
-        google.script.run.withSuccessHandler(callback).withUserObject("photo2").get_image_id(2);
-        google.script.run.withSuccessHandler(callback).withUserObject("photo3").get_image_id(3);
-        google.script.run.withSuccessHandler(callback).withUserObject("photo4").get_image_id(4);
+        getPhotos();
+        
       }
-      function callback(id, string){
+      function getPhotos(){
+        google.script.run.withSuccessHandler(setPhoto).withUserObject("photo0").get_image_id(0);
+        google.script.run.withSuccessHandler(setPhoto).withUserObject("photo1").get_image_id(1);
+        google.script.run.withSuccessHandler(setPhoto).withUserObject("photo2").get_image_id(2);
+        google.script.run.withSuccessHandler(setPhoto).withUserObject("photo3").get_image_id(3);
+        google.script.run.withSuccessHandler(setPhoto).withUserObject("photo4").get_image_id(4);
+        //rotator();
+      }
+      function setPhoto(id, string){
         document.getElementById(string).src = "https://drive.google.com/uc?id=" + id;
+        getExif(document.getElementById(string));
+        console.log(string)
       }
       
-      //function fail(id, string){
-      //  DocumentApp.getActiveDocument().getCursor().insertText("insertion of " + string + "failed.  id = " + id + "\n")
-      //}
+      function getExif(newimg) {
+        EXIF.getData(newimg, function() {
+            var orientation = EXIF.getTag(this, "Orientation");
+            if(orientation == 6) {
+                newimg.className = "sidebar-image rotate90";
+                console.log("sidebar-image rotate90")
+            } else if(orientation == 8) {
+                newimg.className = "sidebar-image rotate270";
+                console.log("sidebar-image rotate270")
+            } else if(orientation == 3) {
+                newimg.className = "sidebar-image rotate180";
+                console.log("sidebar-image rotate180")
+            }
+            else{
+                console.log("never fires")
+            }
+         });
+       };
+      
+      /*function rotator(){
+        var img0 = document.getElementById('photo0');
+        setExif(img0);
+        var img1 = document.getElementById('photo1');
+        setExif(img1);
+        var img2 = document.getElementById('photo2');
+        setExif(img2);
+        var img3 = document.getElementById('photo3');
+        setExif(img3);
+        var img4 = document.getElementById('photo4');
+        setExif(img4);
+  
+      }*/
     </script>
         
   </head>
+  
+  
   <body onload = "load()">
+  
     <div class="sidebar branding-below">
       <form>
           <div>
-            <button id="button0"><img id="photo0" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250"></button>
+            <button id="button0"><img id="photo0" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250" class="sidebar-image"></button>
           </div>
           <div>
-            <button id="button1"><img id="photo1" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250"></button>
+            <button id="button1"><img id="photo1" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250" class="sidebar-image"></button>
           </div>
           <div>
-            <button id="button2"><img id="photo2" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250"></button>
+            <button id="button2"><img id="photo2" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250" class="sidebar-image"></button>
           </div>
           <div>
-            <button id="button3"><img id="photo3" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250"></button>
+            <button id="button3"><img id="photo3" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250" class="sidebar-image"></button>
           </div>
           <div>
-            <button id="button4"><img id="photo4" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250"></button>
+            <button id="button4"><img id="photo4" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="250" height="250" class="sidebar-image"></button>
           </div>
       </form>
     </div>
  
     <!-- Small logo at the bottom. -->
     <div class="sidebar bottom">
-      <img alt="Add-on logo" class="logo" src="https://cdn2.iconfinder.com/data/icons/agriculture-1/512/honey-512.png" width="27" height="27">
+      <img alt="Add-on logo" class="logo" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="27" height="27">
       <a class="gray branding-text" href="https://github.com/akloppenburg/Notecaster">Hacklahoma Project 2019</a>
     </div>
     
@@ -163,5 +228,6 @@
         $(element).after(div);
       }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
   </body>
 </html>

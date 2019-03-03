@@ -68,11 +68,11 @@ function get_last_5_images(){
   var folder = DriveApp.getFolderById(get_notecaster_folder().getId());
   //returns a FileIterator containing all the Files within the Notecaster Folder
   var images = folder.getFiles();
-  //loops through to get the most recent 5 images and store them in an array
+  //loops through to get the most recent 5 images as Blobs and store them in an array
   var last_5_images = [];
   if(images.hasNext()){  
     for(i =0; i < 5; i++){
-      last_5_images.push(images.next());
+      last_5_images.push(images.next().getThumbnail());
     }
     //return the array
     return last_5_images;
@@ -89,13 +89,13 @@ function get_last_5_images(){
  * @param {integer} image_num a number 0-4 corresponding to the given file's location in the last_5_images array
  */
 function get_image_id(image_num){
-  //choose_image function gets a File from the given image_num
+  //choose_image function gets a Blob from the given image_num
   var image = choose_image(image_num);
-  //if the file exists, return its id as a String
+  //if the Blob exists, get the corresponding file return its id as a String
   if(image){
-    DocumentApp.getActiveDocument().getCursor().insertText(image.getId() + "\n")
-    Logger.log(image_num);
-    return image.getId()
+    //DocumentApp.getActiveDocument().getCursor().insertText(image.getId() + "\n")
+    return DriveApp.getFolderById(get_notecaster_folder().getId()).getFilesByName(image.getName()).next().getId()
+    //return image.getId()
   }
   //else, throw an error
   else{
@@ -134,8 +134,10 @@ function add_picture_at_cursor_location(photo) {
   //gets current cursor position
   var cursor = DocumentApp.getActiveDocument().getCursor();
   //inserts Image where the cursor is
-  cursor.insertInlineImage(photo);
-    
+  var img = cursor.insertInlineImage(photo);
+  //set height and width
+  img.setHeight(250);
+  img.setWidth(250);
 }
 
 /**
