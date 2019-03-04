@@ -1,8 +1,7 @@
 ### Current TODO List: 
 1. Finish Google Doc Add-on - Eric and Alex
    * Fix bug where there are less than 5 photos in Google Drive
-   * URLS
-   * Photo scaling 
+   * Photos showing correct orientation
    * Background refresh
 2. IOS App - Cameron and Cavan
     * Make theme and buttons similar to a google app 
