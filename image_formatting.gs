@@ -1,5 +1,4 @@
 /*eval(UrlFetchApp.fetch('https://cdn.jsdelivr.net/npm/exif-js').getContentText());
-
 function setExif(newimg) {
         EXIF.getData(newimg, function() {
             var orientation = EXIF.getTag(this, "Orientation");
@@ -12,4 +11,3 @@ function setExif(newimg) {
             }
         });
 };*/
-  
