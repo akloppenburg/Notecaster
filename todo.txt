@@ -1,5 +1,6 @@
 ### Current TODO List: 
 1. Finish Google Doc Add-on - Eric and Alex
+   * Fix bug where there are less than 5 photos in Google Drive
    * URLS
    * Photo scaling 
    * Background refresh
