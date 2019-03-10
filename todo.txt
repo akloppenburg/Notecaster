@@ -3,6 +3,8 @@
    * Fix bug where there are less than 5 photos in Google Drive
    * Photos showing correct orientation
    * Background refresh
+        * Done, needs to make it cleaner
+   * Add a settings for the user to change the number of photos shown in the sidebar
 2. IOS App - Cameron and Cavan
     * Make theme and buttons similar to a google app 
     * After a photo is uploaded, show a comfirmation animation
