@@ -100,7 +100,9 @@
         getPhotos();
         
       }
-      function getPhotos(){
+      function getPhotos(){       
+        google.script.run.withSuccessHandler(hideMissingImages).get_last_5_images();
+          
         google.script.run.withSuccessHandler(setPhoto).withUserObject("photo0").get_image_id(0);
         google.script.run.withSuccessHandler(setPhoto).withUserObject("photo1").get_image_id(1);
         google.script.run.withSuccessHandler(setPhoto).withUserObject("photo2").get_image_id(2);
@@ -111,7 +113,16 @@
       function setPhoto(id, string){
         document.getElementById(string).src = "https://drive.google.com/uc?id=" + id;
         getExif(document.getElementById(string));
-        console.log(string)
+        //console.log(string)
+      }
+      
+      function hideMissingImages(num_images){
+        var numberOfImages = num_images.length;
+        console.log(numberOfImages);
+        
+        for(i = num_images.length; i < 5; i++){
+          document.getElementById("photo" + i).style.display = "none";
+        }
       }
       
       function getExif(newimg) {
@@ -175,8 +186,8 @@
  
     <!-- Small logo at the bottom. -->
     <div class="sidebar bottom">
-      <img alt="Add-on logo" class="logo" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="27" height="27"> 
-      <a class="gray branding-text">Notecaster</a>
+      <img alt="Add-on logo" class="logo" src="https://cdn.discordapp.com/attachments/549028748180324372/549029151437488154/SPOILER_logo.png" width="27" height="27">
+      <a class="gray branding-text" href="https://github.com/akloppenburg/Notecaster">Hacklahoma Project 2019</a>
     </div>
     
     <!-- JQuery is used here for button click handling  InsertPhoto calls the insert_image function 5 times with a different argument passed through the handler for each button. -->
@@ -186,7 +197,7 @@
       /**
        * On document load, set the sidebar to refresh its content every 10 seconds
        */
-      //setTimeout(refresh, 10000);
+      setTimeout(getPhotos, 10000);
       
       /**
        * On document load, assign click handlers to each button.
@@ -198,6 +209,7 @@
         $('#button3').click({param1: 3}, insertPhoto);
         $('#button4').click({param1: 4}, insertPhoto);
       });
+
       /**
        * Runs a server-side function to insert the appropriate photo into the document
        */

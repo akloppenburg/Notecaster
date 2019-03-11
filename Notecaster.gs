@@ -8,10 +8,11 @@
  *     running in, inspect e.authMode.
  */
 function onOpen(e) {
-  //adds a menu item that is labeled "Start/Refresh" and will call the function that updates the sidebar
-  DocumentApp.getUi().createAddonMenu().addItem('Start/Refresh', 'showSidebar').addToUi();
   //creates the folder if it doesn't already exist
   make_folder();
+  //adds a menu item that is labeled "Start/Refresh" and will call the function that updates the sidebar
+  DocumentApp.getUi().createAddonMenu().addItem('Start/Refresh', 'showSidebar').addToUi();
+  
 }
 
 /**
@@ -73,6 +74,9 @@ function get_last_5_images(){
   if(images.hasNext()){  
     for(i =0; i < 5; i++){
       last_5_images.push(images.next().getThumbnail());
+      if(!images.hasNext()){
+        break; 
+      }
     }
     //return the array
     return last_5_images;
