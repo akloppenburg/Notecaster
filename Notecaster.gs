@@ -9,7 +9,12 @@
  */
 function onOpen(e) {
   //creates the folder if it doesn't already exist
-  make_folder();
+  try{
+    make_folder();
+  }
+  catch(err){
+    console.error(err);
+  }
   //adds a menu item that is labeled "Start/Refresh" and will call the function that updates the sidebar
   DocumentApp.getUi().createAddonMenu().addItem('Start/Refresh', 'showSidebar').addToUi();
   
